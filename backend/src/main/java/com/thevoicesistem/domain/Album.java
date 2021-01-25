@@ -1,20 +1,22 @@
 package com.thevoicesistem.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Artista implements Serializable{
-
+public class Album implements Serializable{
 	
+	/***/
 	private static final long serialVersionUID = 1L;
+	
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -22,47 +24,58 @@ public class Artista implements Serializable{
 	
 	private String nome;
 	
-	@OneToMany(mappedBy = "artista")
-	private List<Album> albuns = new ArrayList<>();
 	
-	public Artista() {}
+	@ManyToOne
+	@JoinColumn(name="artista_id")
+	private Artista artista;
 	
-	public Artista(Integer id, String nome) {
+	
+	
+	
+	
+	public Album() {
+		
+	}
+	
+	
+	public Album(Integer id, String nome, Artista artista) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.artista = artista;
 	}
 
-	/*
-	 get(), set(), HasCode() e equals()  
-	 */
+
 	public Integer getId() {
 		return id;
 	}
+
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
+
 	public String getNome() {
 		return nome;
 	}
 
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 	
-	public List<Album> getAlbuns() {
-		return albuns;
+	
+	@JsonIgnore
+	public Artista getArtista() {
+		return artista;
 	}
 
-	public void setAlbuns(List<Album> albuns) {
-		this.albuns = albuns;
+
+	public void setArtista(Artista artista) {
+		this.artista = artista;
 	}
+
 
 	@Override
 	public int hashCode() {
@@ -71,7 +84,7 @@ public class Artista implements Serializable{
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-	
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -81,7 +94,7 @@ public class Artista implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Artista other = (Artista) obj;
+		Album other = (Album) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -89,8 +102,4 @@ public class Artista implements Serializable{
 			return false;
 		return true;
 	}
-
-
-
-	
 }

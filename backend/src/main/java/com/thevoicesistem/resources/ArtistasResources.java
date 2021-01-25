@@ -26,4 +26,13 @@ public class ArtistasResources {
 		
 		return ResponseEntity.ok().body(obj);
 	}
+	
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity <List<Artista>> findAll() {
+		List<Artista> lista = artistaService.findAll();
+		
+		return ResponseEntity.ok().body(lista);
+		
+	}
 }
