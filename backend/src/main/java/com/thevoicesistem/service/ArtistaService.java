@@ -26,4 +26,10 @@ public class ArtistaService {
 		return obj;
 	}
 	
+	public Artista insert(Artista obj) {
+		obj.setId(null);
+		
+		return artistaRepository.save(obj);
+	}
+	
 }
