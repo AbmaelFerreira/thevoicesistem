@@ -52,4 +52,16 @@ public class AlbumResources {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@RequestMapping(method = RequestMethod.PUT, value="/{id}")
+	public ResponseEntity<Album> insert ( @RequestBody Album obj, @PathVariable Integer id ){
+		obj.setId(id);
+		albumService.update(obj);
+		
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(obj.getId()).toUri();
+		
+		
+		return ResponseEntity.noContent().build();
+	}
+	
 }

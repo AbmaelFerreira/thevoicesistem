@@ -37,4 +37,14 @@ public class AlbumService {
 		return album;
 	}
 	
+	public Album update(Album album) {
+		find(album.getId());
+		
+		albumRepository.save(album);
+		
+		
+		return album;
+	}
+	
+	
 }
