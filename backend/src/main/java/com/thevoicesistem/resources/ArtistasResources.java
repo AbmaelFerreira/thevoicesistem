@@ -3,16 +3,19 @@ package com.thevoicesistem.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.thevoicesistem.domain.Album;
 import com.thevoicesistem.domain.Artista;
 import com.thevoicesistem.service.ArtistaService;
 
@@ -42,7 +45,7 @@ public class ArtistasResources {
 	
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert (@RequestBody Artista artista){
+	public ResponseEntity<Void> insert (@Valid @RequestBody Artista artista){
 		artista = artistaService.insert(artista);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -50,6 +53,28 @@ public class ArtistasResources {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	/*
+	@RequestMapping(method = RequestMethod.PUT, value="/{id}")
+	public ResponseEntity<Artista> update (@RequestBody Artista artista, @PathVariable Integer id){
+		
+		
+		artista = artistaService.find(id);
+		artista.setId(id);
+		 artista = artistaService.update(artista);
+		
+		return ResponseEntity.noContent().build();
+	}
 	
+	*/
 	
+	@PutMapping("/{id}")
+	public ResponseEntity<Artista> atualizar(@PathVariable Integer id , @Valid @RequestBody Artista artista){
+		Artista artistaSalvo = artistaService.find(id);
+		
+		BeanUtils.copyProperties(artista, artistaSalvo, "id");
+		
+		artistaService.update(artistaSalvo);
+		
+		return ResponseEntity.ok(artistaSalvo);
+	}
 }

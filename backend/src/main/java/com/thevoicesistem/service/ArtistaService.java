@@ -33,6 +33,11 @@ public class ArtistaService {
 		return artistaRepository.save(obj);
 		
 	}
-	
-	
+
+	public Artista update(Artista id) {
+		Artista obj =	find(id.getId());
+		
+		return artistaRepository.save(obj);
+
+	}
 }

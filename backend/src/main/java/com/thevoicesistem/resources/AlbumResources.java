@@ -3,9 +3,13 @@ package com.thevoicesistem.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.thevoicesistem.domain.Album;
+import com.thevoicesistem.domain.Artista;
 import com.thevoicesistem.service.AlbumService;
 
 @RestController
@@ -51,17 +56,28 @@ public class AlbumResources {
 		
 		return ResponseEntity.created(uri).build();
 	}
+	/*
 	
-	@RequestMapping(method = RequestMethod.PUT, value="/{id}")
-	public ResponseEntity<Album> insert ( @RequestBody Album obj, @PathVariable Integer id ){
-		obj.setId(id);
-		albumService.update(obj);
+	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Album> update ( @Valid @RequestBody Album album, @PathVariable Integer id ){
 		
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(obj.getId()).toUri();
-		
+		album = albumService.find(id);
+		album.setId(id);
+		album = albumService.update(album);
 		
 		return ResponseEntity.noContent().build();
+	}
+	*/
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<Album> atualizar(@PathVariable Integer id , @Valid @RequestBody Album album){
+		Album albumSalvo = albumService.find(id);
+		
+		BeanUtils.copyProperties(album, albumSalvo, "id");
+		
+		albumService.update(albumSalvo);
+		
+		return ResponseEntity.ok(albumSalvo);
 	}
 	
 }

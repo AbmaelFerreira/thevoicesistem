@@ -37,13 +37,13 @@ public class AlbumService {
 		return album;
 	}
 	
-	public Album update(Album album) {
-		find(album.getId());
+	public Album update(Album id) {
+		Album obj = find(id.getId());
 		
-		albumRepository.save(album);
+		return albumRepository.save(obj);
 		
 		
-		return album;
+		
 	}
 	
 	
