@@ -49,10 +49,10 @@ public class ThevoicesistemApplication implements CommandLineRunner{
 		Album alb12 = new Album(null,"Use Your IIIlusion II", art4);
 		Album alb13 = new Album(null,"Greatest Hits", art4);
 		
-		art1.setAlbuns(Arrays.asList(alb1,alb2, alb3));
-		art2.setAlbuns(Arrays.asList(alb4,alb5, alb6, alb7));
-		art3.setAlbuns(Arrays.asList(alb8, alb9, alb10));
-		art4.setAlbuns(Arrays.asList(alb11, alb12, alb12));
+		art1.getAlbuns().addAll(Arrays.asList(alb1,alb2, alb3));
+		art2.getAlbuns().addAll(Arrays.asList(alb4,alb5, alb6, alb7));
+		art3.getAlbuns().addAll(Arrays.asList(alb8, alb9, alb10));
+		art4.getAlbuns().addAll(Arrays.asList(alb11, alb12, alb12));
 		
 		artistaRepository.saveAll(Arrays.asList(art1, art2, art3, art4));
 		albumRepository.saveAll(Arrays.asList(alb1, alb2,alb3, alb4, alb5,alb6,alb7, alb8,alb9, alb10, alb11,alb12, alb13 ));

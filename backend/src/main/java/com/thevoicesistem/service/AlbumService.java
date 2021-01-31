@@ -4,13 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.thevoicesistem.domain.Album;
-import com.thevoicesistem.domain.Artista;
 import com.thevoicesistem.repository.AlbumRepository;
 
 @Service
@@ -18,6 +14,8 @@ public class AlbumService {
 
 	@Autowired
 	private AlbumRepository albumRepository;
+	
+	
 	
 	public Album find(Integer id){
 		Optional<Album> obj = albumRepository.findById(id);
@@ -30,11 +28,13 @@ public class AlbumService {
 	}
 	
 	
-	public Album insert(Album obj) {
-		obj.setId(null);
+	public Album insert(Album album) {
 		
-		return albumRepository.save(obj);
+		album.setId(null);
+		albumRepository.save(album);
+		
+		
+		return album;
 	}
-	
 	
 }

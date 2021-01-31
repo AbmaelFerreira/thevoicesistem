@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.thevoicesistem.domain.Album;
 import com.thevoicesistem.domain.Artista;
 import com.thevoicesistem.repository.ArtistaRepository;
 
@@ -15,6 +14,8 @@ public class ArtistaService {
 
 	@Autowired
 	private ArtistaRepository artistaRepository;
+	
+	
 	
 	public Artista find(Integer id){
 		Optional<Artista> obj = artistaRepository.findById(id);
@@ -30,6 +31,8 @@ public class ArtistaService {
 		obj.setId(null);
 		
 		return artistaRepository.save(obj);
+		
 	}
+	
 	
 }

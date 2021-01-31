@@ -22,7 +22,7 @@ public class AlbumResources {
 	@Autowired
 	private AlbumService albumService;
 	
-	@RequestMapping(method=RequestMethod.GET, value="/{id}")
+	@RequestMapping(value="/{id}", method=RequestMethod.GET )
 	public ResponseEntity<Album> find(@PathVariable Integer id) {
 		
 		Album obj = albumService.find(id); 
@@ -39,12 +39,17 @@ public class AlbumResources {
 		
 	}
 	
+	
+	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert (@RequestBody Album album){
-		album = albumService.insert(album);
+	public ResponseEntity<Album> insert ( @RequestBody Album obj){
+		Album album = albumService.insert(obj);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(album.getId()).toUri();
+		
+		
 		return ResponseEntity.created(uri).build();
 	}
+	
 }

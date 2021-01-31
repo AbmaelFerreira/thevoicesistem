@@ -23,7 +23,7 @@ public class ArtistasResources {
 	@Autowired
 	private ArtistaService artistaService;
 	
-	@RequestMapping(method=RequestMethod.GET, value="/{id}")
+	@RequestMapping(value="/{id}", method=RequestMethod.GET )
 	public ResponseEntity<Artista> find(@PathVariable Integer id) {
 		
 		Artista obj = artistaService.find(id); 
@@ -49,4 +49,7 @@ public class ArtistasResources {
 				.path("/{id}").buildAndExpand(artista.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
+	
+	
+	
 }
