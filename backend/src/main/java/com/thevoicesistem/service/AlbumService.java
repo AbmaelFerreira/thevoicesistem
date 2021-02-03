@@ -25,12 +25,17 @@ public class AlbumService {
 		return obj.orElse(null);
 	}
 	
+	/*
 	public List<Album> findByArtista(Integer artista){
 		
 		List<Album> obj = albumRepository.findByArtista(artista);
 		
 		return obj;
 	}
+	
+	FAZER TESTE
+	*/
+	
 	
 	public List<Album> findAll(){
 		List<Album> obj = albumRepository.findAll();

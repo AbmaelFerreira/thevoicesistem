@@ -101,10 +101,16 @@ public class AlbumResources {
 				
 	}
 	
+	/*
+	
 	@RequestMapping(value = "/artista", method=RequestMethod.GET)
 	public ResponseEntity<List<Album>> findByArtista(@RequestParam(value="value") Integer artista){
 		
 		List<Album> obj = albumService.findByArtista(artista);
 		return ResponseEntity.ok().body(obj);
 	}
+	
+	FAZER TESTE
+	
+	*/
 }
