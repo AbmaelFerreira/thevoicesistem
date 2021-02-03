@@ -6,11 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.thevoicesistem.domain.Album;
 import com.thevoicesistem.domain.Artista;
+import com.thevoicesistem.domain.Usuario;
+import com.thevoicesistem.domain.enuns.Perfil;
 import com.thevoicesistem.repository.AlbumRepository;
 import com.thevoicesistem.repository.ArtistaRepository;
+import com.thevoicesistem.repository.UsuarioRepository;
 
 @SpringBootApplication
 public class ThevoicesistemApplication implements CommandLineRunner{
@@ -20,6 +24,12 @@ public class ThevoicesistemApplication implements CommandLineRunner{
 	
 	@Autowired
 	private AlbumRepository albumRepository;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder pe;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ThevoicesistemApplication.class, args);
@@ -69,13 +79,21 @@ public class ThevoicesistemApplication implements CommandLineRunner{
 		Album alb12 = new Album(null,"Use Your IIIlusion II", art4);
 		Album alb13 = new Album(null,"Greatest Hits", art4);
 		
+		
+		Usuario usu1 = new Usuario(null, "admin", "abmael_ninha@hotmail.com", pe.encode("123"));
+		Usuario usu2 = new Usuario(null, "admin", "abmael.ninha@gmail.com", pe.encode("123"));
+		
 		art1.getAlbuns().addAll(Arrays.asList(alb1,alb2, alb3));
 		art2.getAlbuns().addAll(Arrays.asList(alb4,alb5, alb6, alb7));
 		art3.getAlbuns().addAll(Arrays.asList(alb8, alb9, alb10));
 		art4.getAlbuns().addAll(Arrays.asList(alb11, alb12, alb12));
 		
+		usu2.addPerfil(Perfil.ADMIN);
+		
 		artistaRepository.saveAll(Arrays.asList(art1, art2, art3, art4, art5, art6, art7, art8, art9, art10, art11, art12, art13, art14, art15, art16, art17, art18, art19, art20, art21, art22, art23, art24));
 		albumRepository.saveAll(Arrays.asList(alb1, alb2,alb3, alb4, alb5,alb6,alb7, alb8,alb9, alb10, alb11,alb12, alb13 ));
+		usuarioRepository.saveAll(Arrays.asList(usu1, usu2));
+		
 		
 	}
 
