@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.thevoicesistem.domain.Album;
 import com.thevoicesistem.domain.Artista;
 import com.thevoicesistem.service.ArtistaService;
 
@@ -77,4 +79,12 @@ public class ArtistasResources {
 		
 		return ResponseEntity.ok(artistaSalvo);
 	}
+	
+	@RequestMapping(value="/nome", method=RequestMethod.GET)
+	public ResponseEntity<Artista> findByArtista(@RequestParam(value="nome") String nome){
+		
+		Artista obj = artistaService.findByNome(nome);
+		return ResponseEntity.ok().body(obj);
+	}
+	
 }

@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.thevoicesistem.domain.Album;
@@ -20,6 +23,13 @@ public class AlbumService {
 	public Album find(Integer id){
 		Optional<Album> obj = albumRepository.findById(id);
 		return obj.orElse(null);
+	}
+	
+	public List<Album> findByArtista(Integer artista){
+		
+		List<Album> obj = albumRepository.findByArtista(artista);
+		
+		return obj;
 	}
 	
 	public List<Album> findAll(){
@@ -45,6 +55,14 @@ public class AlbumService {
 		
 		
 	}
+	
+	
+	 public Page<Album> findPage(Integer page, Integer linesPerPage, String orderBy, String direction  ) {
+		 
+		  PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		  
+		  return albumRepository.findAll(pageRequest);
+	 }
 	
 	
 }

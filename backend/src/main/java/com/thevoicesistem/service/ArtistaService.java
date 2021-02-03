@@ -22,6 +22,11 @@ public class ArtistaService {
 		return obj.orElse(null);
 	}
 	
+	public Artista findByNome(String nome){
+		Artista obj = artistaRepository.findByNome(nome);
+		return obj;
+	}
+	
 	public List<Artista> findAll(){
 		List<Artista> obj = artistaRepository.findAll();
 		return obj;
@@ -40,4 +45,8 @@ public class ArtistaService {
 		return artistaRepository.save(obj);
 
 	}
+	
+	
+
+	
 }
