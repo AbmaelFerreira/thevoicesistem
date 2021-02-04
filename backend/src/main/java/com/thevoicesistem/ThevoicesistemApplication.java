@@ -80,7 +80,7 @@ public class ThevoicesistemApplication implements CommandLineRunner{
 		Album alb13 = new Album(null,"Greatest Hits", art4);
 		
 		
-		Usuario usu1 = new Usuario(null, "admin", "abmael_ninha@hotmail.com", pe.encode("123"));
+		Usuario usu1 = new Usuario(null, "usuario", "abmael_ninha@hotmail.com", pe.encode("123"));
 		Usuario usu2 = new Usuario(null, "admin", "abmael.ninha@gmail.com", pe.encode("123"));
 		
 		art1.getAlbuns().addAll(Arrays.asList(alb1,alb2, alb3));

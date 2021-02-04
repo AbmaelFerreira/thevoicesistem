@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.thevoicesistem.domain.Album;
 import com.thevoicesistem.domain.Artista;
 import com.thevoicesistem.service.ArtistaService;
 
@@ -46,7 +46,7 @@ public class ArtistasResources {
 		
 	}
 	
-	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert (@Valid @RequestBody Artista artista){
 		artista = artistaService.insert(artista);
@@ -69,7 +69,7 @@ public class ArtistasResources {
 	}
 	
 	*/
-	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping("/{id}")
 	public ResponseEntity<Artista> atualizar(@PathVariable Integer id , @Valid @RequestBody Artista artista){
 		Artista artistaSalvo = artistaService.find(id);

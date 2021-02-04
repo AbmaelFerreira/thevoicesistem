@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.thevoicesistem.domain.Album;
-import com.thevoicesistem.domain.Artista;
 import com.thevoicesistem.service.AlbumService;
 
 @RestController
@@ -47,7 +47,7 @@ public class AlbumResources {
 	}
 	
 	
-	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Album> insert ( @RequestBody Album obj){
 		Album album = albumService.insert(obj);
@@ -71,6 +71,7 @@ public class AlbumResources {
 	}
 	*/
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping("/{id}")
 	public ResponseEntity<Album> atualizar(@PathVariable Integer id , @Valid @RequestBody Album album){
 		Album albumSalvo = albumService.find(id);
